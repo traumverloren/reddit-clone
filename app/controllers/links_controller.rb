@@ -1,7 +1,7 @@
 class LinksController < ApplicationController
 
   def index
-    @links = Link.all
+    @links = Link.all.order("created_at DESC").paginate(:page => params[:page], :per_page => 2)
   end
 
   def show
@@ -27,4 +27,5 @@ class LinksController < ApplicationController
   def link_params
     params.require(:link).permit(:title, :url)
   end
+
 end
