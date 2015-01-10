@@ -1,9 +1,12 @@
-<%= link_to "Add a Link", new_link_path %>
+
 
 <h2>All Links</h2>
 <ul>
   <% @links.each do |link| %>
-    <li><%= link_to link.title, link %></li>
+    <li>
+      <%= link.title %><br/>
+      <%= link_to 'Comments', link_path(link) %>
+    </li>
   <% end %>
 </ul>
 

@@ -11,7 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150109123355) do
+ActiveRecord::Schema.define(version: 20150110130417) do
+
+  create_table "comments", force: :cascade do |t|
+    t.text     "message"
+    t.integer  "user_id"
+    t.integer  "link_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "links", force: :cascade do |t|
     t.integer  "user_id"

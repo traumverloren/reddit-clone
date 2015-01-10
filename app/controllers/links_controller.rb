@@ -14,6 +14,7 @@ class LinksController < ApplicationController
 
   def create
     @link = Link.new(link_params)
+    @link.user_id = current_user.id
     if @link.save
       redirect_to links_path, notice: "Link '#{@link.title}' successfully created!"
     else
@@ -25,7 +26,7 @@ class LinksController < ApplicationController
   private
 
   def link_params
-    params.require(:link).permit(:title, :url)
+    params.require(:link).permit(:title, :url, :user_id)
   end
 
 end
