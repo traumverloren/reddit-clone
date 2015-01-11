@@ -11,7 +11,10 @@ gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'devise'
+gem 'bootstrap-sass', '~> 3.3.1'
 gem 'will_paginate', '~> 3.0.7'
+gem 'will_paginate-bootstrap', '~> 1.0.1'
+
 
 group :development, :test do
   gem 'byebug'

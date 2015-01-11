@@ -4,6 +4,6 @@ Rails.application.routes.draw do
   resources :links
   resources :comments, :only => [:new, :create]
 
-  root 'pages#index'
+  root 'links#index'
 
 end

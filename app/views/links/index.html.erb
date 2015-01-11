@@ -1,15 +1,15 @@
+<div>
+  <h3>All Links</h3>
+  <ul>
+    <% @links.each do |link| %>
+      <li>
+        <%= link.title %><br/>
+        <%= link_to 'Comments', link_path(link) %>
+      </li>
+    <% end %>
+  </ul>
 
-
-<h2>All Links</h2>
-<ul>
-  <% @links.each do |link| %>
-    <li>
-      <%= link.title %><br/>
-      <%= link_to 'Comments', link_path(link) %>
-    </li>
-  <% end %>
-</ul>
-
-<div class="paginate">
-  <%= will_paginate @links %>
+  <div class="center">
+    <%= will_paginate @links, renderer: BootstrapPagination::Rails %>
+  </div>
 </div>
