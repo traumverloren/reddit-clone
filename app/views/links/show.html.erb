@@ -3,4 +3,35 @@
 <p><strong>Title: </strong><%= @link.title %></p>
 <p><strong>URL: </strong><%= @link.url%></p>
 
+<h3>Add a comment:</h3>
+
+<%= form_for @comment do |f| %>
+  <% if @comment.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@comment.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+      <ul>
+        <% @comment.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= f.label :message, "Comment" %>:
+  <%= f.text_area :message, :placeholder => "Add a comment" %><br />
+
+  <%= f.hidden_field :link_id, :value => @link.id %>
+
+  <%= f.submit %>
+<% end %>
+
+<h2>Comments:</h2>
+<div>
+  <% @link.comments.each do |comment| %>
+    <p><%= comment.message %><p>
+  <% end %>
+</div>
+
+
 <%= link_to "Back to Links", links_path %>

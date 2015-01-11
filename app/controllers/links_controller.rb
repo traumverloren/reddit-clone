@@ -1,11 +1,8 @@
 class LinksController < ApplicationController
+  before_filter :authenticate_user!, only: [:create]
 
   def index
-    @links = Link.all.order("created_at DESC").paginate(:page => params[:page], :per_page => 2)
-  end
-
-  def show
-    @link = Link.find(params[:id])
+    @links = Link.all.order("created_at DESC").paginate(:page => params[:page], :per_page => 5)
   end
 
   def new
@@ -13,14 +10,18 @@ class LinksController < ApplicationController
   end
 
   def create
-    @link = Link.new(link_params)
-    @link.user_id = current_user.id
+    @link = current_user.links.new(link_params)
     if @link.save
       redirect_to links_path, notice: "Link '#{@link.title}' successfully created!"
     else
       flash[:alert] = "Link not saved!  Please check for errors!"
       render 'new'
     end
+  end
+
+  def show
+    @link = Link.find(params[:id])
+    @comment = Comment.new
   end
 
   private
