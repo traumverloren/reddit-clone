@@ -1,14 +1,33 @@
 <h2>I AMA Homepage</h2>
 
-<ul>
   <% @links.each do |link| %>
-  <li>
-    <%= link.title %> <%= link_to "+", votes_path(:vote => {:link_id => link.id, :up => true}), :method => :post %> <%= link_to "-", votes_path(:vote => {:link_id => link.id, :up => false}), :method => :post %><br/>
-    Votes: <%= link.votes.where(:up => true).count - link.votes.where(:up => false).count %><br/>
-    <%= link_to 'Comments', link_path(link) %>
-  </li>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <strong><%= link.title %></strong>
+
+        <% if current_user && current_user.votes.where(:link_id => link.id, :up => true).present? %>
+          <span class="glyphicon glyphicon-thumbs-up" title=Voted></span>
+        <% else %>
+          <%= link_to votes_path(:vote => {:link_id => link.id, :up => true}), :method => :post do %>
+            <span class="glyphicon glyphicon-thumbs-up" title=Upvote></span>
+          <% end %>
+        <% end %>
+        <%= link.votes.where(:up => true).count %> |
+
+        <% if current_user && current_user.votes.where(:link_id => link.id, :up => false).present? %>
+          <span class="glyphicon glyphicon-thumbs-down" title=Voted></span>
+        <% else %>
+          <%= link_to votes_path(:vote => {:link_id => link.id, :up => false}), :method => :post do %>
+            <span class="glyphicon glyphicon-thumbs-down" title=Downvote></span>
+          <% end %>
+        <% end %>
+        <%= link.votes.where(:up => false).count %>
+      </div>
+      <div class="panel-body">
+        <%= link_to 'Comments', link_path(link) %>
+      </div>
+    </div>
   <% end %>
-</ul>
 
 <div class="center">
   <%= will_paginate @links, renderer: BootstrapPagination::Rails %>
