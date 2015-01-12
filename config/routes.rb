@@ -3,7 +3,8 @@ Rails.application.routes.draw do
   resources :pages
   resources :links
   resources :comments, :only => [:new, :create]
+  resources :votes, :only => [:index, :create]
 
-  root 'links#index'
+  root 'pages#index'
 
 end

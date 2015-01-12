@@ -1,3 +1,15 @@
 <h2>I AMA Homepage</h2>
 
-<%= link_to "Add a Link", new_link_path %>
+<ul>
+  <% @links.each do |link| %>
+  <li>
+    <%= link.title %> <%= link_to "+", votes_path(:vote => {:link_id => link.id, :up => true}), :method => :post %> <%= link_to "-", votes_path(:vote => {:link_id => link.id, :up => false}), :method => :post %><br/>
+    Votes: <%= link.votes.where(:up => true).count - link.votes.where(:up => false).count %><br/>
+    <%= link_to 'Comments', link_path(link) %>
+  </li>
+  <% end %>
+</ul>
+
+<div class="center">
+  <%= will_paginate @links, renderer: BootstrapPagination::Rails %>
+</div>
