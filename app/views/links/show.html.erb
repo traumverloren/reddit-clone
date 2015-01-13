@@ -1,37 +1,53 @@
 <h2>Link</h2>
 
-<p><strong>Title: </strong><%= @link.title %></p>
-<p><strong>URL: </strong><%= @link.url%></p>
-
-<h3>Add a comment:</h3>
-
-<%= form_for @comment do |f| %>
-  <% if @comment.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@comment.errors.count, "error") %> prohibited this user from being saved:</h2>
-
-      <ul>
-        <% @comment.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-        <% end %>
-      </ul>
+<div class="panel panel-default">
+    <div class="panel-heading">
+      <strong><%= @link.title %></strong>
     </div>
-  <% end %>
-
-  <%= f.label :message, "Comment" %>:
-  <%= f.text_area :message, :placeholder => "Add a comment" %><br />
-
-  <%= f.hidden_field :link_id, :value => @link.id %>
-
-  <%= f.submit %>
-<% end %>
-
-<h2>Comments:</h2>
-<div>
-  <% @link.comments.each do |comment| %>
-    <p><%= comment.message %><p>
-  <% end %>
+  <div class="panel-body"> 
+    <p><strong>URL: </strong><%= @link.url%></p>
+  </div>
 </div>
+<div class="panel panel-default">
+  <div class="panel-body"> 
+    <h3>Add a comment:</h3>
+      <%= form_for @comment do |f| %>
+        <% if @comment.errors.any? %>
+          <div id="error_explanation">
+            <h2><%= pluralize(@comment.errors.count, "error") %> prohibited this user from being saved:</h2>
 
+            <ul>
+              <% @comment.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+        <div class="form-group">
+          <%= f.label :message, "Comment" %>
+          <%= f.text_area :message, :placeholder => "Add a comment", class: "form-control" %>
+        </div>
+        <div class="form-group">
+          <%= f.hidden_field :link_id, :value => @link.id %>
+        </div>
+        <div class="form-group">
+          <%= f.submit class: "btn btn-default" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h2>Comments:</h2>
+  </div>
+  <div class="panel-body"> 
+    <div>
+      <% @link.comments.each do |comment| %>
+        <p><%= comment.message %><p>
+      <% end %>
+    </div> 
+  </div>
+</div>
 
 <%= link_to "Back to Front Page", root_path %>
